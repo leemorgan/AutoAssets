@@ -18,9 +18,11 @@ AutoAssets generates a source file containing enumerations of each Xcode Asset, 
 
 
 Instead of accessing image assets like this:
+
     UIImage(named:"someImage")
 
 With the enums AutoAssets generates you can access them using proper name spacing:
+
     IconAssets.Music.image()
 
 <br>
