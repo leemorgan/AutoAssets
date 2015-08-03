@@ -19,28 +19,29 @@ guard let sourcePath = NSProcessInfo.processInfo().environment["SRCROOT"] else {
     exit(EXIT_FAILURE)
 }
 
+// Setup the source output with a comment at the top
+var sourceString = "// DO NOT EDIT. This file is auto-generated and constantly overwritten.\n\n"
+
+
 // Get the build SDK and set the image class to use based on it
 guard let sdkName = NSProcessInfo.processInfo().environment["SDK_NAME"] else {
     exit(EXIT_FAILURE)
 }
 let imageClass: String
 if sdkName.rangeOfString("osx") != nil {
-    print("osx")
-    imageClass = "NSImage"
+	
+	imageClass = "NSImage"
+	sourceString += "import AppKit\n\n" // Add "import AppKit" to the source file
 }
 else if sdkName.rangeOfString("ios") != nil {
-    print("ios")
-    imageClass = "UIImage"
+	
+	imageClass = "UIImage"
+	sourceString += "import UIKit\n\n" // Add "import UIKit" to the source file
 }
 else {
     exit(EXIT_FAILURE)
 }
 
-// Setup the source output with a comment at the top
-var sourceString = "// DO NOT EDIT. This file is auto-generated and constantly overwritten.\n\n"
-
-// We need Cocoa to support the UIImage / NSImage accessor
-sourceString += "import Cocoa\n\n"
 
 // Enumerate the files in 'resources' looking for .xcassets folders to parse
 let fileManager = NSFileManager.defaultManager()
