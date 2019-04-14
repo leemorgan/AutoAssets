@@ -6,10 +6,10 @@ AutoAssets generates a source file containing enumerations of each Xcode Asset, 
     
     enum IconAssets: String {
         case Music
-		case Movies
+        case Movies
         case TVShows
-        
-	    func image() -> NSImage {
+	
+        func image() -> NSImage {
             return NSImage(named: self.rawValue)!
         } 
     }
